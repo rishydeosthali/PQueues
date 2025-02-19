@@ -28,7 +28,30 @@
 */
 void PQueue::push(void *item, int priority)
 {
-	/* Your code here */
+	node *var = new node;
+	node *s = front;
+	(*var).priority = priority;
+	(*var).data = item;
+	(*var).link = nullptr; 
+	if(front == nullptr){
+		front = var;
+	}
+	else if((*front).priority > priority) {
+		(*var).link = front;
+		front = var;
+	}
+	else {
+		node *temp = s;
+		while ((*temp).link != nullptr) {
+			temp = (*temp).link;
+		}
+		while ((*s).link != nullptr && (*(*s).link).priority <= priority) {
+			s = (*s).link;
+		}
+		(*var).link = (*s).link;
+		(*s).link = var;        
+	}
+
 }
 
 /*
@@ -36,6 +59,10 @@ void PQueue::push(void *item, int priority)
  */
 void* PQueue::top()
 {
+	if(front == nullptr){
+		return nullptr;
+	}
+	return (*front).data;
 	/* Your code here */
 }
 /*
@@ -43,6 +70,10 @@ void* PQueue::top()
  */
 void PQueue::pop()
 {
+	if(front == nullptr){
+		return;
+	}
+	front = (*front).link;
 	/* Your code here */
 }
 
@@ -55,7 +86,11 @@ void PQueue::display()
 	/* Your code here */
 	
 	/* Use the following out command for the data */
-	std::cout<<ptr->priority<<" "<<(char*)ptr->data<<std::endl;
+	node *var = front;
+	while(var != nullptr){
+	std::cout<<var->priority<<" "<<(char*)var->data<<std::endl;
+	var = (*var).link;
 
+	}
 }
 	
