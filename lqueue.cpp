@@ -175,4 +175,13 @@ int lq_setattr (lqd_t __msgid, const struct lq_attr *__mqstat, struct lq_attr *_
 {
 	return 0;
 }
+int lq_real(const char *__name)
+{
+    for (int i = 0; i < LQUEUE_TABLE_MAX; i++) {
+        if (strcmp(lqueue_table[i].lq_name, __name) == 0) {
+            return 1;
+        }
+    }
+    return 0; 
+}
 
